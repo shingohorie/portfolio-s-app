@@ -1,5 +1,5 @@
 import { createClient } from "microcms-js-sdk";
-import { getAPICacheKey, getAPICache, setAPICache, deleteAPICache, hasAPICacheKey } from "@/util/apiCacheController";
+import { getApiCacheKey, getApiCache, setApiCache, deleteApiCache, hasApiCacheKey } from "@/util/apiCacheController";
 
 import type { Work, Tool, Era, Tag, Endpoint, AdjacentPosts } from "@/types/microcms";
 import type { MicroCMSQueries } from "microcms-js-sdk";
@@ -27,6 +27,12 @@ export const client = createClient({
 // ========================================
 // 投稿の一件取得
 // ========================================
+/**
+ * 指定したエンドポイントから1ページのコンテンツ一覧を取得する
+ * @param endpoint microCMSのエンドポイント名
+ * @param queries 取得オプション（limit, offset, ordersなど）
+ * @returns 取得したコンテンツ配列
+ */
 export async function fetchPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
@@ -43,12 +49,18 @@ export async function fetchPosts(
 // ========================================
 // 全ての投稿を取得する（キャッシュがあればそれを返す）
 // ========================================
+/**
+ * キャッシュ経由で同一クエリの全件取得を効率化する
+ * @param endpoint microCMSのエンドポイント名
+ * @param queriesStr JSON文字列化されたクエリオブジェクト
+ * @returns 取得済みコンテンツのPromise（キャッシュまたはAPIコール）
+ */
 async function getAllContents(endpoint: Endpoint, queriesStr: string) {
-  const cacheKey = getAPICacheKey(endpoint, queriesStr);
+  const cacheKey = getApiCacheKey(endpoint, queriesStr);
 
   // キャッシュがあればそれを返す
-  if (hasAPICacheKey(cacheKey)) {
-    return getAPICache(cacheKey);
+  if (hasApiCacheKey(cacheKey)) {
+    return getApiCache(cacheKey);
   }
 
   const queries = queriesStr ? JSON.parse(queriesStr) : {};
@@ -63,17 +75,23 @@ async function getAllContents(endpoint: Endpoint, queriesStr: string) {
     .catch((err) => {
       console.error(err);
       // エラー時はキャッシュから削除
-      deleteAPICache(cacheKey);
+      deleteApiCache(cacheKey);
       return [];
     });
 
-  setAPICache(cacheKey, promise);
+  setApiCache(cacheKey, promise);
   return promise;
 }
 
 // ========================================
 // 投稿の全件取得
 // ========================================
+/**
+ * 指定したエンドポイントの全件データを取得（キャッシュ付き）
+ * @param endpoint microCMSのエンドポイント名
+ * @param queries 取得オプション
+ * @returns 取得した全件コンテンツ配列
+ */
 export async function fetchAllPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
@@ -87,6 +105,12 @@ export async function fetchAllPosts(
 // ========================================
 // URLの生成
 // ========================================
+/**
+ * 端末内のページURLを生成する
+ * @param endpoint microCMSのエンドポイント名
+ * @param id コンテンツID
+ * @returns 生成したURL文字列
+ */
 export function generateURL(endpoint: Endpoint, id: string): string {
   return `/${endpoint}/${id}`;
 }
@@ -94,6 +118,12 @@ export function generateURL(endpoint: Endpoint, id: string): string {
 // ========================================
 // 前後の記事の取得
 // ========================================
+/**
+ * 投稿一覧から指定IDの前後の投稿を探す
+ * @param endpoint microCMSのエンドポイント名
+ * @param id 検索対象コンテンツのID
+ * @returns 前後の投稿情報（存在しない場合はnull）
+ */
 export async function fetchAdjacentPosts(
   endpoint: Endpoint,
   id: string

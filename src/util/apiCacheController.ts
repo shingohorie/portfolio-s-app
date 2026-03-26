@@ -8,22 +8,47 @@ type CacheKey = string;
 export type CachedContent = (Work | Tool | Tag | Era)[];
 export const responseCache = new Map<CacheKey, Promise<CachedContent>>();
 
-export function getAPICacheKey(endpoint: Endpoint, queriesStr: string): CacheKey {
+/**
+ * APIのエンドポイントとクエリ文字列を組み合わせてキャッシュキーを生成する
+ * @param endpoint microCMSのエンドポイント名
+ * @param queriesStr クエリパラメータを文字列化したもの（ソート・フィルタなど）
+ * @returns キャッシュ用の一意キー
+ */
+export function getApiCacheKey(endpoint: Endpoint, queriesStr: string): CacheKey {
     return `${endpoint}::${queriesStr}`;
 }
 
-export function setAPICache(key: CacheKey, data: Promise<CachedContent>): void {
+/**
+ * 生成済みのキャッシュを登録する
+ * @param key キャッシュキー
+ * @param data キャッシュ対象データ（Promiseラップ）
+ */
+export function setApiCache(key: CacheKey, data: Promise<CachedContent>): void {
     responseCache.set(key, data);
 }
 
-export function getAPICache(key: CacheKey): Promise<CachedContent> | undefined {
+/**
+ * キャッシュからデータを取得する
+ * @param key キャッシュキー
+ * @returns キャッシュにあればPromise<CachedContent>、なければundefined
+ */
+export function getApiCache(key: CacheKey): Promise<CachedContent> | undefined {
     return responseCache.get(key);
 }
 
-export function deleteAPICache(key: CacheKey): void {
+/**
+ * キャッシュエントリを削除する
+ * @param key キャッシュキー
+ */
+export function deleteApiCache(key: CacheKey): void {
     responseCache.delete(key);
 }
 
-export function hasAPICacheKey(key: CacheKey): boolean {
+/**
+ * キャッシュに指定キーが存在するか判定する
+ * @param key キャッシュキー
+ * @returns 存在する場合はtrue
+ */
+export function hasApiCacheKey(key: CacheKey): boolean {
     return responseCache.has(key);
 }
