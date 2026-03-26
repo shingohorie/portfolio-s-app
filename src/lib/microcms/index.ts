@@ -1,8 +1,10 @@
-// libs/microcms.ts
 import { createClient } from "microcms-js-sdk";
+import { getCacheKey, responseCache } from "@/util/getCacheKey";
 
 import type { Work, Tool, Era, Tag, Endpoint, AdjacentPosts } from "@/types/microcms";
 import type { MicroCMSQueries } from "microcms-js-sdk";
+import type { CachedContent } from "@/util/getCacheKey";
+
 
 // 環境変数にMICROCMS_SERVICE_DOMAINが設定されていない場合はエラーを投げる
 if (!process.env.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN) {
@@ -21,17 +23,6 @@ export const client = createClient({
   serviceDomain: process.env.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN,
   apiKey: process.env.NEXT_PUBLIC_MICROCMS_API_KEY,
 });
-
-// ========================================
-// メモリキャッシュ（ビルド時のAPI呼び出し削減）
-// ========================================
-type CacheKey = string;
-type CachedContent = (Work | Tool | Tag | Era)[];
-const responseCache = new Map<CacheKey, Promise<CachedContent>>();
-
-function getCacheKey(endpoint: Endpoint, queriesStr: string): CacheKey {
-  return `${endpoint}::${queriesStr}`;
-}
 
 // ========================================
 // 投稿の一件取得
