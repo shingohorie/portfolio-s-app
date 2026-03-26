@@ -1,9 +1,9 @@
 import { createClient } from "microcms-js-sdk";
-import { getCacheKey, responseCache } from "@/util/getCacheKey";
+import { getAPICacheKey, getAPICache, setAPICache, deleteAPICache, hasAPICacheKey } from "@/util/apiCacheController";
 
 import type { Work, Tool, Era, Tag, Endpoint, AdjacentPosts } from "@/types/microcms";
 import type { MicroCMSQueries } from "microcms-js-sdk";
-import type { CachedContent } from "@/util/getCacheKey";
+import type { CachedContent } from "@/util/apiCacheController";
 
 
 // 環境変数にMICROCMS_SERVICE_DOMAINが設定されていない場合はエラーを投げる
@@ -41,14 +41,14 @@ export async function fetchPosts(
 }
 
 // ========================================
-// 全ての投稿を取得する（キャッシュ付き）
+// 全ての投稿を取得する（キャッシュがあればそれを返す）
 // ========================================
 async function getAllContents(endpoint: Endpoint, queriesStr: string) {
-  const cacheKey = getCacheKey(endpoint, queriesStr);
+  const cacheKey = getAPICacheKey(endpoint, queriesStr);
 
   // キャッシュがあればそれを返す
-  if (responseCache.has(cacheKey)) {
-    return responseCache.get(cacheKey);
+  if (hasAPICacheKey(cacheKey)) {
+    return getAPICache(cacheKey);
   }
 
   const queries = queriesStr ? JSON.parse(queriesStr) : {};
@@ -63,11 +63,11 @@ async function getAllContents(endpoint: Endpoint, queriesStr: string) {
     .catch((err) => {
       console.error(err);
       // エラー時はキャッシュから削除
-      responseCache.delete(cacheKey);
+      deleteAPICache(cacheKey);
       return [];
     });
 
-  responseCache.set(cacheKey, promise);
+  setAPICache(cacheKey, promise);
   return promise;
 }
 
