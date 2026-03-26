@@ -1,6 +1,5 @@
 // libs/microcms.ts
 import { createClient } from "microcms-js-sdk";
-import { unstable_cache } from "next/cache";
 
 import type { Work, Tool, Era, Tag, Endpoint, AdjacentPosts } from "@/types/microcms";
 import type { MicroCMSQueries } from "microcms-js-sdk";
@@ -24,30 +23,20 @@ export const client = createClient({
 });
 
 // ========================================
-// 実績一覧の取得（キャッシュ付き）
+// メモリキャッシュ（ビルド時のAPI呼び出し削減）
 // ========================================
-const getCachedAllContents = unstable_cache(
-  async (endpoint: Endpoint, queriesStr: string) => {
-    const queries = queriesStr ? JSON.parse(queriesStr) : {};
-    return await client
-      .getAllContents({
-        endpoint: endpoint,
-        queries,
-      })
-      .then((res) => res)
-      .catch((err) => {
-        console.error(err);
-        return [];
-      });
-  },
-  ["microcms-all-contents"],
-  { tags: ["microcms"], revalidate: 3600 }
-);
+type CacheKey = string;
+type CachedContent = (Work | Tool | Tag | Era)[];
+const responseCache = new Map<CacheKey, Promise<CachedContent>>();
+
+function getCacheKey(endpoint: Endpoint, queriesStr: string): CacheKey {
+  return `${endpoint}::${queriesStr}`;
+}
 
 export async function fetchPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
-): Promise<(Work | Tool | Era | Tag)[]> {
+): Promise<CachedContent> {
   const data = await client.get({
     endpoint: endpoint,
     queries: {
@@ -58,14 +47,42 @@ export async function fetchPosts(
 }
 
 // ========================================
-// 実績一覧の取得（100件以上）
+// 実績一覧の取得（100件以上）- キャッシュ付き
 // ========================================
+async function getAllContents(endpoint: Endpoint, queriesStr: string) {
+  const cacheKey = getCacheKey(endpoint, queriesStr);
+
+  // キャッシュがあればそれを返す
+  if (responseCache.has(cacheKey)) {
+    return responseCache.get(cacheKey);
+  }
+
+  const queries = queriesStr ? JSON.parse(queriesStr) : {};
+
+  // 新しいリクエストを作成してキャッシュに保存
+  const promise = client
+    .getAllContents({
+      endpoint: endpoint,
+      queries,
+    })
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+      // エラー時はキャッシュから削除
+      responseCache.delete(cacheKey);
+      return [];
+    });
+
+  responseCache.set(cacheKey, promise);
+  return promise;
+}
+
 export async function fetchAllPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
 ): Promise<(Work | Tool | Tag)[]> {
   const queriesStr = queries ? JSON.stringify(queries) : "";
-  const data = await getCachedAllContents(endpoint, queriesStr);
+  const data = await getAllContents(endpoint, queriesStr);
   if (!data) return [];
   return data;
 }
@@ -85,7 +102,7 @@ export async function fetchAdjacentPosts(
   id: string
 ): Promise<AdjacentPosts> {
   // 全ての記事を取得してから、引数に渡されたIDをもとに前後の記事を特定する
-  const ALL_DATA = await getCachedAllContents(
+  const ALL_DATA = await getAllContents(
     endpoint,
     JSON.stringify({ orders: "system:default" })
   );
@@ -97,7 +114,7 @@ export async function fetchAdjacentPosts(
     };
 
   // 引数に渡されたIDをもとに前後の記事を特定
-  const index = ALL_DATA.findIndex((item) => item.id === id);
+  const index = ALL_DATA.findIndex((item: Work | Tool) => item.id === id);
   const previous = index > 0 ? ALL_DATA[index - 1] : null;
   const next = index < ALL_DATA.length - 1 ? ALL_DATA[index + 1] : null;
 
