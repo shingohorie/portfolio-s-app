@@ -1,0 +1,303 @@
+/* Tailwind CSSのインポート */
+@import "tailwindcss";
+
+/* =============================================
+共通で使用するカスタム変数の定義（カラー・フォントサイズなど）
+============================================= */
+:root {
+  --white: #ffffff;
+  --black: #000;
+  --gray-light: #e8e7e7;
+  --gray-medium: #bbb;
+  --gray-dark: #999999;
+  --gray-darker: #555555;
+  --link: #759dc9;
+  --link-hover: #378cea;
+  --red: #ff3b30;
+
+  /* フォントサイズの定義（rem単位） */
+  --text-2xs: 1rem;
+  --text-xs: 1.2rem;
+  --text-small: 1.4rem;
+  --text-basic: 1.6rem;
+  --text-medium: 1.8rem;
+  --text-large: 2rem;
+  --text-xl: 2.4rem;
+  --text-2xl: 2.8rem;
+  --text-3xl: 3rem;
+  --text-4xl: 3.4rem;
+  --text-5xl: 3.6rem;
+
+  --font-weight-medium: 500;
+}
+
+/* =============================================
+Tailwindのthemeを拡張するための変数定義（初期化＋再定義）
+============================================= */
+@theme inline {
+  /* 各種ユーティリティ変数を初期化 */
+  --color-*: initial;
+  --container-*: initial;
+  --breakpoint-*: initial;
+  --text-*: initial;
+  --tracking-*: initial;
+  --leading-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --text-shadow-*: initial;
+  --blur-*: initial;
+  --perspective-*: initial;
+  --animate-*: initial;
+
+  /* カスタムカラー再定義 */
+  --color-gray-light: var(--gray-light);
+  --color-gray-medium: var(--gray-medium);
+  --color-gray-dark: var(--gray-dark);
+  --color-gray-darker: var(--gray-darker);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-red: var(--red);
+
+  /* フォントサイズ再定義 */
+  --text-2xs: var(--text-2xs);
+  --text-xs: var(--text-xs);
+  --text-small: var(--text-small);
+  --text-basic: var(--text-basic);
+  --text-medium: var(--text-medium);
+  --text-large: var(--text-large);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+  --text-5xl: var(--text-5xl);
+
+  /* サイズはすべて 1rem × 係数 となる */
+  --spacing: 1rem;
+
+  /* フォントファミリー再定義 */
+  --font-lato: var(--font-lato);
+  --font-noto: var(--font-noto);
+}
+
+/* デフォルトのhtmlフォントサイズ設定（1rem = 10px） */
+html {
+  font-size: 62.5%;
+}
+
+html.behavior-smooth {
+  scroll-behavior: smooth;
+}
+
+/* bodyの基本スタイル定義 */
+body {
+  min-width: 1024px;
+  background: var(--white);
+  color: var(--black);
+  font-size: var(--text-basic);
+  font-family: var(--font-lato), var(--font-noto), sans-serif;
+}
+
+/* =============================================
+下線付きリンクのカスタムスタイル
+============================================= */
+.custom-underlined-link {
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+/* 下線アニメーション（ホバー時に線が左から右へ） */
+.custom-underlined-link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--black);
+  transition:
+    width 0.2s ease-in-out,
+    right 0.2s ease-in-out,
+    left 0.2s ease-in-out;
+}
+
+/* 現在のリンク、またはホバー時に下線が表示される */
+.custom-underlined-link.custom-is-current::after,
+.custom-underlined-link:hover::after {
+  width: 100%;
+  right: auto;
+  left: 0;
+}
+
+/* =============================================
+WYSIWYGエディタ内のパーツに対するカスタムスタイル
+============================================= */
+/* WYSIWYGエディタ内の見出しスタイル */
+.custom-wysiwyg h2 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.custom-wysiwyg h3 {
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+}
+
+/* WYSIWYGエディタ内のコードブロックスタイル */
+.custom-wysiwyg pre code.hljs {
+  display: block;
+  margin: 1em auto 1em;
+  padding: 16px 24px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  border-radius: 4px;
+}
+
+/* WYSIWYGエディタ内の段落スタイル */
+.custom-wysiwyg p {
+  margin: 0 auto 1em;
+}
+
+/* 空の段落は非表示にする */
+.custom-wysiwyg p:empty {
+  display: none;
+}
+
+/* 箇条書き（ul）リストスタイル */
+.custom-wysiwyg ul {
+  margin: 1em auto 1em;
+}
+
+.custom-wysiwyg ul li {
+  text-indent: -1em;
+  margin-left: 1em;
+  margin-bottom: 5px;
+}
+
+/* リストマーカーとして「・」を表示 */
+.custom-wysiwyg ul li::before {
+  content: "・";
+  display: inline-block;
+  width: 12px;
+  text-indent: -0.5em;
+  font-size: 1.6rem;
+  line-height: 1.125;
+  text-align: center;
+}
+
+/* 番号付きリスト（ol）のスタイル */
+.custom-wysiwyg ol {
+  margin: 1em auto 1em;
+}
+
+.custom-wysiwyg ol li {
+  display: flex;
+  counter-increment: order;
+  margin-bottom: 5px;
+}
+
+/* 番号を表示 */
+.custom-wysiwyg ol li::before {
+  content: counter(order) ".";
+  margin-right: 0.5em;
+}
+
+/* 定義リスト（dl）のスタイル */
+.custom-wysiwyg dl {
+  margin: 0 auto 1em;
+}
+
+.custom-wysiwyg dl dt {
+  font-size: 1.2em;
+}
+
+.custom-wysiwyg dl dd {
+  margin: 0.5em 0 0;
+}
+
+/* 定義リストの最後の子要素のマージンをリセット */
+.custom-wysiwyg dl dd > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ddの後のdtにマージンを追加 */
+.custom-wysiwyg dl dd + dt {
+  margin: 1em 0 0;
+}
+
+/* 水平線のスタイル（点線風） */
+.custom-wysiwyg hr {
+  background-image: linear-gradient(
+    #e8e7e7,
+    #e8e7e7 33.33%,
+    hsla(0, 0%, 100%, 0) 33.33%,
+    hsla(0, 0%, 100%, 0) 100%
+  );
+  background-size: 100% 3px;
+  background-repeat: repeat-y;
+  border: none;
+  display: block;
+  width: 40px;
+  height: 20px;
+  margin: 2em auto;
+}
+
+/* リンクのスタイル（WYSIWYG内） */
+.custom-wysiwyg a {
+  color: #759dc9;
+  text-decoration: underline;
+}
+
+/* リンクホバー時の色変更 */
+.custom-wysiwyg a:hover {
+  color: #378cea;
+}
+
+/* 引用（blockquote）のスタイル */
+.custom-wysiwyg blockquote {
+  margin: 4em auto;
+  padding-left: 20px;
+  color: #555;
+  border-left: 5px solid #bbb;
+}
+
+/* 出典（cite）のスタイル */
+.custom-wysiwyg cite {
+  font-style: normal;
+  font-size: 80%;
+}
+
+/* =============================================
+アーカイブ用ページャーの装飾背景（市松模様風）
+============================================= */
+.custom-pager-archive {
+  background:
+    linear-gradient(
+        to right,
+        #000 0,
+        #000 18px,
+        #fff 18px,
+        #fff 20px,
+        #000 20px,
+        #000 38px
+      )
+      no-repeat left top,
+    linear-gradient(
+        to right,
+        #000 0,
+        #000 18px,
+        #fff 18px,
+        #fff 20px,
+        #000 20px,
+        #000 38px
+      )
+      no-repeat left bottom;
+  background-size:
+    38px 18px,
+    38px 18px;
+}
