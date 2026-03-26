@@ -33,6 +33,9 @@ function getCacheKey(endpoint: Endpoint, queriesStr: string): CacheKey {
   return `${endpoint}::${queriesStr}`;
 }
 
+// ========================================
+// 投稿の一件取得
+// ========================================
 export async function fetchPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
@@ -47,7 +50,7 @@ export async function fetchPosts(
 }
 
 // ========================================
-// 実績一覧の取得（100件以上）- キャッシュ付き
+// 全ての投稿を取得する（キャッシュ付き）
 // ========================================
 async function getAllContents(endpoint: Endpoint, queriesStr: string) {
   const cacheKey = getCacheKey(endpoint, queriesStr);
@@ -77,10 +80,13 @@ async function getAllContents(endpoint: Endpoint, queriesStr: string) {
   return promise;
 }
 
+// ========================================
+// 投稿の全件取得
+// ========================================
 export async function fetchAllPosts(
   endpoint: Endpoint,
   queries?: MicroCMSQueries
-): Promise<(Work | Tool | Tag)[]> {
+): Promise<(Work | Tool | Tag | Era)[]> {
   const queriesStr = queries ? JSON.stringify(queries) : "";
   const data = await getAllContents(endpoint, queriesStr);
   if (!data) return [];
