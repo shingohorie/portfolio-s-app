@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { Suspense } from "react";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
-import { EntryDetail } from "@/app/_components/detail/EntryDetail";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { EntryDetail } from '@/app/_components/detail/EntryDetail';
+import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
-import type { MicroCMSQueries } from "microcms-js-sdk";
+import type { MicroCMSQueries } from 'microcms-js-sdk';
 
-import type { Work, Tool, Endpoint, AdjacentPosts } from "@/types/microcms";
-import { fetchAdjacentPosts, fetchPosts, generateURL } from "@/lib/microcms";
+import type { Work, Tool, Endpoint, AdjacentPosts } from '@/types/microcms';
+import { fetchAdjacentPosts, fetchPosts, generateURL } from '@/lib/microcms';
 
 function PreviewPageContent() {
   const searchParams = useSearchParams();
-  const post_type = searchParams.get("post_type") as Endpoint | null;
-  const content_id = searchParams.get("content_id");
-  const draftKey = searchParams.get("draftKey");
+  const post_type = searchParams.get('post_type') as Endpoint | null;
+  const content_id = searchParams.get('content_id');
+  const draftKey = searchParams.get('draftKey');
   const [data, setData] = useState<Work | Tool | null>(null);
   const [dataPager, setDataPager] = useState<AdjacentPosts | null>(null);
 
@@ -31,6 +31,13 @@ function PreviewPageContent() {
       const res2 = await fetchAdjacentPosts(post_type, content_id);
       setData((res as Work[] | Tool[])[0]);
       setDataPager(res2 as AdjacentPosts);
+
+      // タイトル更新はデータ取得後、ブラウザ環境でのみ実行
+      if (data) {
+        document.title = `${data.title} | ${
+          post_type === 'works' ? 'Works' : 'Tools'
+        } | PORTFOLIO-S`;
+      }
     };
 
     getPreviewData();
@@ -38,30 +45,26 @@ function PreviewPageContent() {
 
   if (!data || !dataPager) return null;
 
-  document.title = `${data.title} | ${
-    post_type === "works" ? "Works" : "Tools"
-  } | PORTFOLIO-S`;
-
   return (
     <>
-      {post_type === "works" && (
+      {post_type === 'works' && (
         <Breadcrumbs
           directory={[
-            { name: "Works", href: "/works" },
+            { name: 'Works', href: '/works' },
             {
               name: `${data.title}`,
-              href: `${generateURL("works", data.id)}`,
+              href: `${generateURL('works', data.id)}`,
             },
           ]}
         />
       )}
-      {post_type === "tools" && (
+      {post_type === 'tools' && (
         <Breadcrumbs
           directory={[
-            { name: "Tools", href: "/tools" },
+            { name: 'Tools', href: '/tools' },
             {
               name: `${data.title}`,
-              href: `${generateURL("tools", data.id)}`,
+              href: `${generateURL('tools', data.id)}`,
             },
           ]}
         />
