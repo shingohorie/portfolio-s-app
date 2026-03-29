@@ -1,4 +1,4 @@
-import type { MicroCMSListContent } from "microcms-js-sdk";
+import type { MicroCMSListContent } from 'microcms-js-sdk';
 
 // ========================================
 // S3から取得している画像フィールドの型
@@ -27,17 +27,17 @@ export type Era = MicroCMSListContent & {
 // ========================================
 // 繰り返しフィールド自体には id/createdAt 等がつかないため、ListContentは継承しない
 export type URL = {
-  fieldId: "url";
+  fieldId: 'url';
   url: string;
 };
 
 export type Feature = {
-  fieldId: "feature";
+  fieldId: 'feature';
   detail: string;
 };
 
 export type Figure = {
-  fieldId: "figure";
+  fieldId: 'figure';
   media: S3Image | null;
   caption: string;
 };
@@ -74,17 +74,17 @@ export type Work = MicroCMSListContent & {
 // ========================================
 // 実績（ツール）APIの型定義
 // ========================================
-export type Tool = Omit<Work, "is_sticky" | "copy" | "client" | "urls">;
+export type Tool = Omit<Work, 'is_sticky' | 'copy' | 'client' | 'urls'>;
 
 // ========================================
 // エンドポイント名の型定義
 // ========================================
-export type Endpoint = "works" | "tools" | "tags" | "eras";
+export type Endpoint = 'works' | 'tools' | 'tags' | 'eras';
 
 // ========================================
 // 前後の記事取得用の型定義
 // ========================================
 export type AdjacentPosts = {
-  previous: Work | Tool | null;
-  next: Work | Tool | null;
+  previous: Work | Tool | Tag | null;
+  next: Work | Tool | Tag | null;
 };
