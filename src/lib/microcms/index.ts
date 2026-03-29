@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createClient } from 'microcms-js-sdk';
 
 import type {
@@ -37,18 +38,21 @@ export const client = createClient({
  * @param queries 取得オプション（limit, offset, ordersなど）
  * @returns 取得したコンテンツ配列
  */
-export async function fetchPosts(
-  endpoint: Endpoint,
-  queries?: MicroCMSQueries,
-): Promise<(Work | Tool | Tag | Era)[]> {
-  const data = await client.get({
-    endpoint: endpoint,
-    queries: {
-      ...queries,
-    },
-  });
-  return data.contents;
-}
+export const fetchPosts = cache(
+  async (
+    endpoint: Endpoint,
+    queries?: MicroCMSQueries,
+  ): Promise<(Work | Tool | Tag | Era)[]> => {
+    // 実際のリクエスト処理
+    const data = await client.get({
+      endpoint: endpoint,
+      queries: {
+        ...queries,
+      },
+    });
+    return data.contents;
+  },
+);
 
 // ========================================
 // 投稿の全件取得
@@ -59,17 +63,20 @@ export async function fetchPosts(
  * @param queries 取得オプション
  * @returns 取得した全件コンテンツ配列
  */
-export async function fetchAllPosts(
-  endpoint: Endpoint,
-  queries?: MicroCMSQueries,
-): Promise<(Work | Tool | Tag | Era)[]> {
-  const data = await client.getAllContents({
-    endpoint,
-    queries,
-  });
-  if (!data) return [];
-  return data;
-}
+export const fetchAllPosts = cache(
+  async (
+    endpoint: Endpoint,
+    queries?: MicroCMSQueries,
+  ): Promise<(Work | Tool | Tag | Era)[]> => {
+    // 実際のリクエスト処理
+    const data = await client.getAllContents({
+      endpoint,
+      queries,
+    });
+    if (!data) return [];
+    return data;
+  },
+);
 
 // ========================================
 // URLの生成
