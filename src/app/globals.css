@@ -1,5 +1,5 @@
 /* Tailwind CSSのインポート */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* =============================================
 共通で使用するカスタム変数の定義（カラー・フォントサイズなど）
@@ -111,7 +111,7 @@ body {
 
 /* 下線アニメーション（ホバー時に線が左から右へ） */
 .custom-underlined-link::after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: 0;
@@ -181,7 +181,7 @@ WYSIWYGエディタ内のパーツに対するカスタムスタイル
 
 /* リストマーカーとして「・」を表示 */
 .custom-wysiwyg ul li::before {
-  content: "・";
+  content: '・';
   display: inline-block;
   width: 12px;
   text-indent: -0.5em;
@@ -203,7 +203,7 @@ WYSIWYGエディタ内のパーツに対するカスタムスタイル
 
 /* 番号を表示 */
 .custom-wysiwyg ol li::before {
-  content: counter(order) ".";
+  content: counter(order) '.';
   margin-right: 0.5em;
 }
 

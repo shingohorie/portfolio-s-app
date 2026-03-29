@@ -1,4 +1,4 @@
-import type { SkillType } from "@/types/about";
+import type { SkillType } from '@/types/about';
 
 export function BarometerRegular({ name, annotation, percentage }: SkillType) {
   return (
@@ -22,7 +22,7 @@ export function BarometerRegular({ name, annotation, percentage }: SkillType) {
 }
 
 export function BarometerIrregular({
-  inexperienced,
+  inexperienced
 }: {
   inexperienced: string;
 }) {

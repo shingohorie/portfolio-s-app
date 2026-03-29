@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import type { AdjacentPosts } from "@/types/microcms";
-import { generateURL } from "@/lib/microcms";
+import type { AdjacentPosts } from '@/types/microcms';
+import { generateURL } from '@/lib/microcms';
 
 export function Pager({ data }: { data: AdjacentPosts }) {
   return (
@@ -10,8 +10,8 @@ export function Pager({ data }: { data: AdjacentPosts }) {
         <p className="order-1 flex-1 max-w-[40%] mr-auto">
           <Link
             href={generateURL(
-              "is_sticky" in data.previous ? "works" : "tools",
-              data.previous.id,
+              'is_sticky' in data.previous ? 'works' : 'tools',
+              data.previous.id
             )}
             className="group block h-full py-2 hover:opacity-70 transition-opacity duration-300"
           >
@@ -31,8 +31,8 @@ export function Pager({ data }: { data: AdjacentPosts }) {
         <p className="order-3 flex-1 text-right max-w-[40%] ml-auto">
           <Link
             href={generateURL(
-              "is_sticky" in data.next ? "works" : "tools",
-              data.next.id,
+              'is_sticky' in data.next ? 'works' : 'tools',
+              data.next.id
             )}
             className="group block h-full py-2 hover:opacity-70 transition-opacity duration-300"
           >
@@ -51,10 +51,10 @@ export function Pager({ data }: { data: AdjacentPosts }) {
       <p className="order-2 absolute top-0 left-0 right-0 bottom-0 z-10 w-[38px] h-[38px] m-auto ">
         <Link
           href={
-            (data.next && "is_sticky" in data.next) ||
-            (data.previous && "is_sticky" in data.previous)
-              ? "/works"
-              : "/tools"
+            (data.next && 'is_sticky' in data.next) ||
+            (data.previous && 'is_sticky' in data.previous)
+              ? '/works'
+              : '/tools'
           }
           className="block w-full h-full hover:opacity-70 transition-opacity duration-300"
         >

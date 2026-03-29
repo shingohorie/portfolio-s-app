@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { SecondaryHeader } from "./";
+import { SecondaryHeader } from './';
 
 const meta = {
-  component: SecondaryHeader,
+  component: SecondaryHeader
 } satisfies Meta<typeof SecondaryHeader>;
 
 export default meta;
@@ -11,8 +11,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    text: "テスト第２レベル見出し",
-  },
+    text: 'テスト第２レベル見出し'
+  }
 };
 
 /**
@@ -20,9 +20,9 @@ export const Default: Story = {
  * 今回は `level={5}` を指定したため `h5` で描画される
  */
 export const LevelSpecified: Story = {
-  name: "指定したタグ名で描画",
+  name: '指定したタグ名で描画',
   args: {
-    text: "テスト第２レベル見出し",
-    level: 5,
-  },
+    text: 'テスト第２レベル見出し',
+    level: 5
+  }
 };

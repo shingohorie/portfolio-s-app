@@ -1,4 +1,4 @@
-import { formatInTimeZone } from "date-fns-tz";
+import { formatInTimeZone } from 'date-fns-tz';
 
 interface EntryInfoLoanchedProps {
   loanched?: string;
@@ -7,13 +7,13 @@ interface EntryInfoLoanchedProps {
 
 export function EntryInfoLoanched({
   loanched,
-  className,
+  className
 }: EntryInfoLoanchedProps) {
   return (
     loanched && (
       <div className={className ?? className}>
         <p className="mb-1 text-basic">公開日</p>
-        <p>{formatInTimeZone(loanched, "Asia/Tokyo", "yyyy/MM")}</p>
+        <p>{formatInTimeZone(loanched, 'Asia/Tokyo', 'yyyy/MM')}</p>
       </div>
     )
   );

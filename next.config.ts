@@ -8,23 +8,23 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'placehold.jp',
+        hostname: 'placehold.jp'
       },
       {
         protocol: 'https',
-        hostname: 'samplelib.com',
+        hostname: 'samplelib.com'
       },
       {
         protocol: 'https',
-        hostname: 'portfolio-s.info',
-      },
-    ],
+        hostname: 'portfolio-s.info'
+      }
+    ]
   },
   // ビルド時の並列ワーカー数を制限
   experimental: {
     workerThreads: false,
-    cpus: 1,
-  },
+    cpus: 1
+  }
 };
 
 export default nextConfig;

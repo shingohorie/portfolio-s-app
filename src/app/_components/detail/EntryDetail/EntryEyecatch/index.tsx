@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { Gallery, Item } from "react-photoswipe-gallery";
+import { Gallery, Item } from 'react-photoswipe-gallery';
 
 interface EntryEyecatchProps {
   image: string;
@@ -26,7 +26,7 @@ export function EntryEyecatch({ image, title }: EntryEyecatchProps) {
       img.onload = () => {
         setImgNaturalSize({
           width: img.naturalWidth,
-          height: img.naturalHeight,
+          height: img.naturalHeight
         });
       };
     }

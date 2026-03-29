@@ -1,24 +1,24 @@
-import { Lato, Noto_Sans_JP } from "next/font/google";
+import { Lato, Noto_Sans_JP } from 'next/font/google';
 
-import { HeaderContainer } from "@/components/layout/Header/";
-import { FooterContainer } from "@/components/layout/Footer/";
+import { HeaderContainer } from '@/components/layout/Header/';
+import { FooterContainer } from '@/components/layout/Footer/';
 
-import "./globals.css";
+import './globals.css';
 
 const lato = Lato({
-  variable: "--font-lato",
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  variable: '--font-lato',
+  subsets: ['latin'],
+  weight: ['400', '700']
 });
 
 const notoSansJP = Noto_Sans_JP({
-  variable: "--font-noto",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  variable: '--font-noto',
+  subsets: ['latin'],
+  weight: ['400', '500', '700']
 });
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

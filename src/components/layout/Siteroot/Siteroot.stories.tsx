@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Siteroot } from "./";
+import { Siteroot } from './';
 
 const meta = {
-  component: Siteroot,
+  component: Siteroot
 } satisfies Meta<typeof Siteroot>;
 
 export default meta;
@@ -14,10 +14,10 @@ type Story = StoryObj<typeof meta>;
  * - リンクは設定されない
  */
 export const FrontPage: Story = {
-  name: "トップページ用",
+  name: 'トップページ用',
   args: {
-    isFrontPage: true,
-  },
+    isFrontPage: true
+  }
 };
 
 /**
@@ -25,10 +25,10 @@ export const FrontPage: Story = {
  * - リンクが設定される
  */
 export const LowerPage: Story = {
-  name: "下層ページ用",
+  name: '下層ページ用',
   args: {
-    isFrontPage: false,
-  },
+    isFrontPage: false
+  }
 };
 
 /**
@@ -38,11 +38,11 @@ export const LowerPage: Story = {
  * - トップページ用のためリンクは設定されない
  */
 export const TagNameSpecifiedForFrontPage: Story = {
-  name: "指定したタグ名で描画（トップページ用）",
+  name: '指定したタグ名で描画（トップページ用）',
   args: {
     isFrontPage: true,
-    tagName: "div",
-  },
+    tagName: 'div'
+  }
 };
 
 /**
@@ -52,9 +52,9 @@ export const TagNameSpecifiedForFrontPage: Story = {
  * - 下層ページ用のためリンクは設定される
  */
 export const TagNameSpecifiedForLowerPage: Story = {
-  name: "指定したタグ名で描画（下層ページ用）",
+  name: '指定したタグ名で描画（下層ページ用）',
   args: {
     isFrontPage: false,
-    tagName: "div",
-  },
+    tagName: 'div'
+  }
 };

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Header } from "./Header";
+import { Header } from './Header';
 
 const meta = {
   component: Header,
   parameters: {
     nextjs: {
-      appDirectory: true,
-    },
-  },
+      appDirectory: true
+    }
+  }
 } satisfies Meta<typeof Header>;
 
 export default meta;
@@ -20,14 +20,14 @@ type Story = StoryObj<typeof meta>;
  * - 下線がなくなる
  */
 export const FrontPage: Story = {
-  name: "トップページ用",
+  name: 'トップページ用',
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/", // usePathnameをモック
-      },
-    },
-  },
+        pathname: '/' // usePathnameをモック
+      }
+    }
+  }
 };
 
 /**
@@ -37,12 +37,12 @@ export const FrontPage: Story = {
  * - 該当するリンクがカレント表示になる
  */
 export const LowerPage: Story = {
-  name: "下層ページ用",
+  name: '下層ページ用',
   parameters: {
     nextjs: {
       navigation: {
-        pathname: "/works/", // usePathnameをモック
-      },
-    },
-  },
+        pathname: '/works/' // usePathnameをモック
+      }
+    }
+  }
 };

@@ -1,4 +1,4 @@
-type AllowedTagName = "h2" | "h3" | "h4" | "h5";
+type AllowedTagName = 'h2' | 'h3' | 'h4' | 'h5';
 
 interface SecondaryHeaderProps {
   text: string;
@@ -9,7 +9,7 @@ interface SecondaryHeaderProps {
 export function SecondaryHeader({
   text,
   level = 2,
-  className,
+  className
 }: SecondaryHeaderProps) {
   // "h" + 数字 でタグ名を作成し、大文字変数に入れる
   // TypeScriptに「これはHTMLタグだよ」と教えるために `as ElementType（ElementTypeはReactよりインポート）` を付けるが、今回のようにタグ名を限定した型を指定しても可

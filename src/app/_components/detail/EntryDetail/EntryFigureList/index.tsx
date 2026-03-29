@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Gallery, Item } from "react-photoswipe-gallery";
+import { useEffect, useState } from 'react';
+import { Gallery, Item } from 'react-photoswipe-gallery';
 
-import type { Figure as FigureType } from "@/types/microcms";
+import type { Figure as FigureType } from '@/types/microcms';
 
 interface EntryFigurePropos {
   index: number;
@@ -16,7 +16,7 @@ interface EntryFigureListProps {
 
 function EntryFigure({ index, data }: EntryFigurePropos) {
   const url = data.media?.url ?? null;
-  const isVideo = url?.endsWith(".mp4") ?? false;
+  const isVideo = url?.endsWith('.mp4') ?? false;
   const isImage = !isVideo && !!url;
 
   // photoswipeにわたすため画像の本来のサイズを取得する
@@ -33,7 +33,7 @@ function EntryFigure({ index, data }: EntryFigurePropos) {
       img.onload = () => {
         setImgNaturalSize({
           width: img.naturalWidth,
-          height: img.naturalHeight,
+          height: img.naturalHeight
         });
       };
     }
@@ -71,10 +71,10 @@ function EntryFigure({ index, data }: EntryFigurePropos) {
       {data.caption && (
         <figcaption className="mt-2 flex gap-1">
           <span className="font-bold flex-shrink-0">
-            Fig {index.toString().padStart(2, "0")}.
+            Fig {index.toString().padStart(2, '0')}.
           </span>
           <span
-            dangerouslySetInnerHTML={{ __html: data.caption || "" }}
+            dangerouslySetInnerHTML={{ __html: data.caption || '' }}
             className="whitespace-pre-wrap"
           ></span>
         </figcaption>

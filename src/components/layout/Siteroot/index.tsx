@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-type AllowedTagName = "h1" | "p" | "div";
+type AllowedTagName = 'h1' | 'p' | 'div';
 
 interface SiterootProps {
   isFrontPage: boolean;
@@ -20,7 +20,7 @@ function Logo() {
   );
 }
 
-export function Siteroot({ isFrontPage, tagName = "p" }: SiterootProps) {
+export function Siteroot({ isFrontPage, tagName = 'p' }: SiterootProps) {
   const Tag = tagName;
 
   return isFrontPage ? (

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Siteroot } from "@/components/layout/Siteroot/";
+import { Siteroot } from '@/components/layout/Siteroot/';
 
 interface GnavLinkProps {
   title: string;
@@ -16,7 +16,7 @@ function GnavLink({ title, href, pathname }: GnavLinkProps) {
     <Link
       href={href}
       className={`
-        text-gray-darker hover:text-black transition-colors duration-300 custom-underlined-link ${pathname.startsWith(href) && "custom-is-current"}`}
+        text-gray-darker hover:text-black transition-colors duration-300 custom-underlined-link ${pathname.startsWith(href) && 'custom-is-current'}`}
     >
       <span className="flex items-center h-9">{title}</span>
     </Link>
@@ -25,11 +25,11 @@ function GnavLink({ title, href, pathname }: GnavLinkProps) {
 
 export function Header() {
   const pathname = usePathname();
-  const isFrontPage = pathname === "/";
-  const tagName = isFrontPage ? "h1" : "p";
+  const isFrontPage = pathname === '/';
+  const tagName = isFrontPage ? 'h1' : 'p';
 
   return (
-    <header className={`px-4 ${!isFrontPage && "border-b border-gray-light"}`}>
+    <header className={`px-4 ${!isFrontPage && 'border-b border-gray-light'}`}>
       <div className="relative flex items-center justify-between max-w-[1024px] m-auto">
         <div className="order-2 absolute top-0 left-0 right-0 bottom-0 m-auto py-2 text-center">
           <Siteroot isFrontPage={isFrontPage} tagName={tagName} />

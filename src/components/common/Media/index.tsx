@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { formatInTimeZone } from "date-fns-tz";
+import Link from 'next/link';
+import { formatInTimeZone } from 'date-fns-tz';
 
-import { Tag } from "@/components/common/Tag";
+import { Tag } from '@/components/common/Tag';
 
-import type { Tag as TagType } from "@/types/microcms";
+import type { Tag as TagType } from '@/types/microcms';
 
 interface MediaProps {
   title: string;
@@ -12,7 +12,7 @@ interface MediaProps {
   date?: string;
   href?: string;
   client?: string;
-  direction?: "" | "reverse";
+  direction?: '' | 'reverse';
 }
 
 function MediaBody({
@@ -22,14 +22,14 @@ function MediaBody({
   date,
   href,
   client,
-  direction,
+  direction
 }: MediaProps) {
   return (
     <div
-      className={`flex items-center ${direction === "reverse" && "flex-row-reverse"}`}
+      className={`flex items-center ${direction === 'reverse' && 'flex-row-reverse'}`}
     >
       <figure
-        className={`w-18 border border-gray-light flex-shrink-0" ${direction === "reverse" ? "ml-3" : "mr-3"}`}
+        className={`w-18 border border-gray-light flex-shrink-0" ${direction === 'reverse' ? 'ml-3' : 'mr-3'}`}
       >
         <img
           className="full h-auto max-w-full align-bottom"
@@ -48,20 +48,20 @@ function MediaBody({
           <ul className="mt-2 flex flex-wrap gap-x-1 gap-y-[5px] pl-2 border-l border-gray-medium">
             {tags.map((tag) =>
               href ? (
-                <Tag key={tag.id} text={tag.name ?? ""} />
+                <Tag key={tag.id} text={tag.name ?? ''} />
               ) : (
                 <Tag
                   key={tag.id}
-                  text={tag.name ?? ""}
+                  text={tag.name ?? ''}
                   id={tag.id ?? undefined}
                 />
-              ),
+              )
             )}
           </ul>
         )}
         {date && (
           <p className="mt-3 text-xs leading-none text-gray-dark">
-            {formatInTimeZone(date, "Asia/Tokyo", "yyyy/MM")}
+            {formatInTimeZone(date, 'Asia/Tokyo', 'yyyy/MM')}
           </p>
         )}
       </div>
@@ -74,9 +74,9 @@ export function Media({
   image,
   tags,
   date,
-  href = "",
-  client = "",
-  direction,
+  href = '',
+  client = '',
+  direction
 }: MediaProps) {
   const content = (
     <MediaBody

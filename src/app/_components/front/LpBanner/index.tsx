@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { IoIosArrowForward } from "react-icons/io";
+import Link from 'next/link';
+import { IoIosArrowForward } from 'react-icons/io';
 
 export function LpBanner() {
   return (

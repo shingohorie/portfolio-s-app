@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Separator } from "./";
+import { Separator } from './';
 
 const meta = {
-  component: Separator,
+  component: Separator
 } satisfies Meta<typeof Separator>;
 
 export default meta;

@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { Media } from "@/components/common/Media";
-import { PrimaryHeader } from "@/components/common/PrimaryHeader";
+import { Media } from '@/components/common/Media';
+import { PrimaryHeader } from '@/components/common/PrimaryHeader';
 
-import type { Work, Tool } from "@/types/microcms";
+import type { Work, Tool } from '@/types/microcms';
 
-import { generateURL } from "@/lib/microcms";
+import { generateURL } from '@/lib/microcms';
 
 interface RecentsProps {
   title_ja: string;
@@ -22,7 +22,7 @@ export function Recents({
   detail_title,
   detail_href,
   data,
-  className,
+  className
 }: RecentsProps) {
   return (
     <div className={className ?? className}>
@@ -34,22 +34,22 @@ export function Recents({
       />
       {data.map((d, i) => (
         <div className="py-4 border-b border-gray-light" key={i}>
-          {"is_sticky" in d ? (
+          {'is_sticky' in d ? (
             <Media
               title={d.title}
-              image={d.thumbnail.url ?? ""}
+              image={d.thumbnail.url ?? ''}
               tags={d.tags}
               date={d.released}
               client={d.client}
-              href={generateURL("works", d.id)}
+              href={generateURL('works', d.id)}
             />
           ) : (
             <Media
               title={d.title}
-              image={d.thumbnail.url ?? ""}
+              image={d.thumbnail.url ?? ''}
               tags={d.tags}
               date={d.released}
-              href={generateURL("tools", d.id)}
+              href={generateURL('tools', d.id)}
             />
           )}
         </div>

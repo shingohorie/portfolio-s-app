@@ -24,7 +24,7 @@ function PreviewPageContent() {
     if (!content_id || !post_type) return;
     const getPreviewData = async () => {
       const query: MicroCMSQueries = {
-        filters: `id[equals]${Number(content_id)}`,
+        filters: `id[equals]${Number(content_id)}`
       };
       if (draftKey) query.draftKey = draftKey;
       const res = await fetchPosts(post_type, query);
@@ -53,8 +53,8 @@ function PreviewPageContent() {
             { name: 'Works', href: '/works' },
             {
               name: `${data.title}`,
-              href: `${generateURL('works', data.id)}`,
-            },
+              href: `${generateURL('works', data.id)}`
+            }
           ]}
         />
       )}
@@ -64,8 +64,8 @@ function PreviewPageContent() {
             { name: 'Tools', href: '/tools' },
             {
               name: `${data.title}`,
-              href: `${generateURL('tools', data.id)}`,
-            },
+              href: `${generateURL('tools', data.id)}`
+            }
           ]}
         />
       )}

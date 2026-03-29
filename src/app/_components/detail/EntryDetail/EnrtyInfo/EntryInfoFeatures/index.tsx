@@ -1,4 +1,4 @@
-import type { Feature as FeatureType } from "@/types/microcms";
+import type { Feature as FeatureType } from '@/types/microcms';
 
 interface EntryInfoFeaturesProps {
   features?: FeatureType[];
@@ -7,7 +7,7 @@ interface EntryInfoFeaturesProps {
 
 export function EntryInfoFeatures({
   features,
-  className,
+  className
 }: EntryInfoFeaturesProps) {
   return (
     features &&

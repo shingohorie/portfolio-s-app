@@ -17,9 +17,9 @@ export function Certs({ data }: { data: CertType[] }) {
           {cert.alias && <span className="ml-1">({cert.alias})</span>}
           {(cert.version || cert.class) && (
             <span className="text-xs ml-1">
-              {`[ ${[cert.class, cert.products?.join(" / "), cert.version]
+              {`[ ${[cert.class, cert.products?.join(' / '), cert.version]
                 .filter(Boolean)
-                .join(" , ")} ]`}
+                .join(' , ')} ]`}
             </span>
           )}
         </li>

@@ -1,6 +1,6 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import type { URL as URLType } from "@/types/microcms";
+import type { URL as URLType } from '@/types/microcms';
 
 interface EntryInfoURLProps {
   urls: URLType[];

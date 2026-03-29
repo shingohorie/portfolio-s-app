@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback, MouseEvent } from "react";
-import Link from "next/link";
+import { useState, useEffect, useCallback, MouseEvent } from 'react';
+import Link from 'next/link';
 
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-import { Tag } from "@/components/common/Tag";
+import { Tag } from '@/components/common/Tag';
 
-import { generateURL } from "@/lib/microcms";
+import { generateURL } from '@/lib/microcms';
 
-import type { Work } from "@/types/microcms";
+import type { Work } from '@/types/microcms';
 
 interface PickupProps {
   pickups: Work[];
@@ -19,14 +19,14 @@ interface PickupProps {
 
 export function Pickup({ pickups }: PickupProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 40 }, [
-    Autoplay({ delay: 6000, stopOnInteraction: true }),
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   ]);
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
     if (emblaApi) {
-      emblaApi.on("select", () => {
+      emblaApi.on('select', () => {
         const newIndex = emblaApi.selectedScrollSnap();
         setSelectedIndex(newIndex);
       });
@@ -37,7 +37,7 @@ export function Pickup({ pickups }: PickupProps) {
     if (emblaApi) {
       emblaApi.plugins().autoplay?.stop();
       emblaApi.scrollPrev();
-      emblaApi.on("settle", () => {
+      emblaApi.on('settle', () => {
         emblaApi.plugins().autoplay?.play();
       });
     }
@@ -47,7 +47,7 @@ export function Pickup({ pickups }: PickupProps) {
     if (emblaApi) {
       emblaApi.plugins().autoplay?.stop();
       emblaApi.scrollNext();
-      emblaApi.on("settle", () => {
+      emblaApi.on('settle', () => {
         emblaApi.plugins().autoplay?.play();
       });
     }
@@ -55,16 +55,16 @@ export function Pickup({ pickups }: PickupProps) {
 
   const scrollToIndex = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
-      const index = Number(e.currentTarget.getAttribute("data-index"));
+      const index = Number(e.currentTarget.getAttribute('data-index'));
       if (emblaApi) {
         emblaApi.plugins().autoplay?.stop();
         emblaApi.scrollTo(index);
-        emblaApi.on("settle", () => {
+        emblaApi.on('settle', () => {
           emblaApi.plugins().autoplay?.play();
         });
       }
     },
-    [emblaApi],
+    [emblaApi]
   );
 
   return (
@@ -79,13 +79,13 @@ export function Pickup({ pickups }: PickupProps) {
                   key={data.id}
                 >
                   <Link
-                    href={generateURL("works", data.id)}
+                    href={generateURL('works', data.id)}
                     className="block py-8 px-4 group"
                   >
                     <img
                       width="500"
                       height="500"
-                      src={data.thumbnail.url ?? ""}
+                      src={data.thumbnail.url ?? ''}
                       className="w-full h-full absolute top-0 left-0 object-cover opacity-40 pointer-events-none select-none filter blur-[20px] scale-120 group-hover:scale-140 transition-transform duration-400"
                       alt=""
                     />
@@ -106,7 +106,7 @@ export function Pickup({ pickups }: PickupProps) {
                               {data.tags.map((tag) => (
                                 <Tag
                                   key={tag.id}
-                                  text={tag.name ?? ""}
+                                  text={tag.name ?? ''}
                                   className="text-white"
                                 />
                               ))}
@@ -117,7 +117,7 @@ export function Pickup({ pickups }: PickupProps) {
                           <img
                             width="500"
                             height="500"
-                            src={data.thumbnail.url ?? ""}
+                            src={data.thumbnail.url ?? ''}
                             className="w-full h-auto max-w-full align-bottom"
                             alt=""
                           />
@@ -150,7 +150,7 @@ export function Pickup({ pickups }: PickupProps) {
                 <button
                   key={data.id}
                   data-index={i}
-                  className={`w-1 h-1 rounded-[50%] cursor-pointer ${selectedIndex === i ? "bg-white pointer-events-none" : "bg-gray-dark"}`}
+                  className={`w-1 h-1 rounded-[50%] cursor-pointer ${selectedIndex === i ? 'bg-white pointer-events-none' : 'bg-gray-dark'}`}
                   onClick={scrollToIndex}
                 >
                   <span></span>

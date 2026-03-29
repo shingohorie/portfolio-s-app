@@ -7,7 +7,7 @@ import type {
   Era,
   Tag,
   Endpoint,
-  AdjacentPosts,
+  AdjacentPosts
 } from '@/types/microcms';
 import type { MicroCMSQueries } from 'microcms-js-sdk';
 
@@ -26,7 +26,7 @@ if (!process.env.NEXT_PUBLIC_MICROCMS_API_KEY) {
 // ========================================
 export const client = createClient({
   serviceDomain: process.env.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN,
-  apiKey: process.env.NEXT_PUBLIC_MICROCMS_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_MICROCMS_API_KEY
 });
 
 // ========================================
@@ -41,15 +41,15 @@ export const client = createClient({
 export const fetchPosts = cache(
   async (
     endpoint: Endpoint,
-    queries?: MicroCMSQueries,
+    queries?: MicroCMSQueries
   ): Promise<(Work | Tool | Tag | Era)[]> => {
     // 実際のリクエスト処理
     const data = await client.get({
       endpoint,
-      queries,
+      queries
     });
     return data.contents;
-  },
+  }
 );
 
 // ========================================
@@ -64,16 +64,16 @@ export const fetchPosts = cache(
 export const fetchAllPosts = cache(
   async (
     endpoint: Endpoint,
-    queries?: MicroCMSQueries,
+    queries?: MicroCMSQueries
   ): Promise<(Work | Tool | Tag | Era)[]> => {
     // 実際のリクエスト処理
     const data = await client.getAllContents({
       endpoint,
-      queries,
+      queries
     });
     if (!data) return [];
     return data;
-  },
+  }
 );
 
 // ========================================
@@ -100,17 +100,17 @@ export function generateURL(endpoint: Endpoint, id: string): string {
  */
 export async function fetchAdjacentPosts(
   endpoint: Endpoint,
-  id: string,
+  id: string
 ): Promise<AdjacentPosts> {
   // 全ての記事を取得してから、引数に渡されたIDをもとに前後の記事を特定する
   const ALL_DATA = (await fetchAllPosts(endpoint, {
-    orders: 'system:default',
+    orders: 'system:default'
   })) as (Work | Tool)[];
 
   if (!ALL_DATA || ALL_DATA.length === 0)
     return {
       previous: null,
-      next: null,
+      next: null
     };
 
   // 引数に渡されたIDをもとに前後の記事を特定
@@ -120,6 +120,6 @@ export async function fetchAdjacentPosts(
 
   return {
     previous,
-    next,
+    next
   };
 }

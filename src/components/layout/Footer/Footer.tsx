@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Siteroot } from "@/components/layout/Siteroot/";
+import { Siteroot } from '@/components/layout/Siteroot/';
 
-import type { Work, Tool } from "@/types/microcms";
-import { generateURL } from "@/lib/microcms";
+import type { Work, Tool } from '@/types/microcms';
+import { generateURL } from '@/lib/microcms';
 
 interface FooterProps {
   works: Work[];
@@ -16,7 +16,7 @@ interface FooterProps {
 
 export function Footer({ works, tools, managements }: FooterProps) {
   const pathname = usePathname();
-  const isFrontPage = pathname === "/";
+  const isFrontPage = pathname === '/';
 
   return (
     <footer className="mt-8 px-4 bg-gradient-to-b from-white to-gray-light">
@@ -39,7 +39,7 @@ export function Footer({ works, tools, managements }: FooterProps) {
                     {works.map((work) => (
                       <li key={work.title}>
                         <Link
-                          href={generateURL("works", work.id)}
+                          href={generateURL('works', work.id)}
                           className="hover:text-black transition-colors duration-300"
                         >
                           {work.title}
@@ -62,8 +62,8 @@ export function Footer({ works, tools, managements }: FooterProps) {
                       <li key={management.title}>
                         <Link
                           href={generateURL(
-                            "is_sticky" in management ? "works" : "tools",
-                            management.id,
+                            'is_sticky' in management ? 'works' : 'tools',
+                            management.id
                           )}
                           className="hover:text-black transition-colors duration-300"
                         >
@@ -87,7 +87,7 @@ export function Footer({ works, tools, managements }: FooterProps) {
                     {tools.map((tool) => (
                       <li key={tool.title}>
                         <Link
-                          href={generateURL("tools", tool.id)}
+                          href={generateURL('tools', tool.id)}
                           className="hover:text-black transition-colors duration-300"
                         >
                           {tool.title}

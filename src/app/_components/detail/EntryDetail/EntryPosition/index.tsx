@@ -7,7 +7,7 @@ interface EntryPositionProps {
 export function EntryPosition({
   position = [],
   env = [],
-  client,
+  client
 }: EntryPositionProps) {
   return (
     (position || env) && (
@@ -21,13 +21,13 @@ export function EntryPosition({
         {position.length > 0 && (
           <>
             <dt>担当</dt>
-            <dd>{position.join(" / ")}</dd>
+            <dd>{position.join(' / ')}</dd>
           </>
         )}
         {env.length > 0 && (
           <>
             <dt>対応環境</dt>
-            <dd>{env.join(" / ")}</dd>
+            <dd>{env.join(' / ')}</dd>
           </>
         )}
       </dl>

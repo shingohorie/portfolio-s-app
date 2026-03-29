@@ -1,4 +1,4 @@
-import { Gallery, Item } from "react-photoswipe-gallery";
+import { Gallery, Item } from 'react-photoswipe-gallery';
 
 export function Features() {
   return (

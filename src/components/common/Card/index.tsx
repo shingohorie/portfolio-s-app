@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { formatInTimeZone } from "date-fns-tz";
+import Link from 'next/link';
+import { formatInTimeZone } from 'date-fns-tz';
 
-import { Tag } from "@/components/common/Tag";
+import { Tag } from '@/components/common/Tag';
 
-import type { Tag as TagType } from "@/types/microcms";
+import type { Tag as TagType } from '@/types/microcms';
 
 interface CardProps {
   title: string;
@@ -48,7 +48,7 @@ export function Card({ title, image, tags, date, href, client }: CardProps) {
             {tags.map((tag) => (
               <Tag
                 key={tag.id}
-                text={tag.name ?? ""}
+                text={tag.name ?? ''}
                 id={tag.id ?? undefined}
               />
             ))}
@@ -56,7 +56,7 @@ export function Card({ title, image, tags, date, href, client }: CardProps) {
         )}
         {date && (
           <p className="mt-2 text-xs leading-none text-gray-dark">
-            {formatInTimeZone(date, "Asia/Tokyo", "yyyy/MM")}
+            {formatInTimeZone(date, 'Asia/Tokyo', 'yyyy/MM')}
           </p>
         )}
       </div>

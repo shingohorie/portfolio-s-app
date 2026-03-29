@@ -1,6 +1,6 @@
-import { BarometerRegular, BarometerIrregular } from "../Barometer";
+import { BarometerRegular, BarometerIrregular } from '../Barometer';
 
-import type { SkillType } from "@/types/about";
+import type { SkillType } from '@/types/about';
 
 interface BarometersProps {
   skills: SkillType[];
