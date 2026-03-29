@@ -45,10 +45,8 @@ export const fetchPosts = cache(
   ): Promise<(Work | Tool | Tag | Era)[]> => {
     // 実際のリクエスト処理
     const data = await client.get({
-      endpoint: endpoint,
-      queries: {
-        ...queries,
-      },
+      endpoint,
+      queries,
     });
     return data.contents;
   },
