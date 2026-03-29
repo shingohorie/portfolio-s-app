@@ -85,6 +85,6 @@ export type Endpoint = 'works' | 'tools' | 'tags' | 'eras';
 // 前後の記事取得用の型定義
 // ========================================
 export type AdjacentPosts = {
-  previous: Work | Tool | Tag | null;
-  next: Work | Tool | Tag | null;
+  previous: Work | Tool | null;
+  next: Work | Tool | null;
 };

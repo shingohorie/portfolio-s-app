@@ -98,7 +98,9 @@ export async function fetchAdjacentPosts(
   id: string,
 ): Promise<AdjacentPosts> {
   // 全ての記事を取得してから、引数に渡されたIDをもとに前後の記事を特定する
-  const ALL_DATA = await fetchAllPosts(endpoint, { orders: 'system:default' });
+  const ALL_DATA = (await fetchAllPosts(endpoint, {
+    orders: 'system:default',
+  })) as (Work | Tool)[];
 
   if (!ALL_DATA || ALL_DATA.length === 0)
     return {
