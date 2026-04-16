@@ -20,6 +20,8 @@ export type Tag = MicroCMSListContent & {
 
 export type Era = MicroCMSListContent & {
   name: string;
+  detail_works?: string;
+  detail_management?: string;
 };
 
 // ========================================

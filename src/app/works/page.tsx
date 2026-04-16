@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PrimaryHeader } from '@/components/common/PrimaryHeader';
@@ -12,6 +14,7 @@ import { fetchPosts, fetchAllPosts } from '@/lib/microcms';
 interface ResultsProps {
   heading: string;
   data: Work[];
+  detail?: string;
 }
 
 export const metadata: Metadata = {
@@ -34,8 +37,11 @@ export default async function Works() {
     heading: era.name ?? '',
     data: DATA_WORKS.filter(
       (data) => data.era.id === era.id && 'is_sticky' in data
-    )
-  }));
+    ),
+    detail: era.detail_works
+  }))
+    .filter((result) => result.data.length > 0)
+    .reverse(); // データが1件もない年代は表示しない
 
   return (
     <>
@@ -44,38 +50,16 @@ export default async function Works() {
         <main className="max-w-[1024px] m-auto py-4">
           <PrimaryHeader text_ja="実績一覧" text_en="Works" className="mb-6" />
 
-          {RESULTS && (
-            <EntryList
-              heading={RESULTS[2].heading}
-              annotation={`事業会社Aで自社サービス「はたらこねっと」のエンハンスと、「はたらこマガジン」の新規立ち上げに携わりました。
-              これまでと異なり自身はPLとしてプロジェクト管理に専念し、フロントエンド開発はチームメンバーに任せる形で進めておりました。
-              また、プロジェクトの進行にあたり、社内の関係者との調整や、要件定義・設計・進行管理を行っておりました。`}
-              data={RESULTS[2].data}
-            />
-          )}
-
-          <Separator />
-
-          {RESULTS && (
-            <EntryList
-              heading={RESULTS[1].heading}
-              annotation={`制作会社Bにてフロントエンド開発と、プロジェクト管理を担当。
-              開発では、大規模・中規模サイトの設計構築を担当。
-              プロジェクト管理では自身で設計したサイトの量産管理・工程の再定義・複数チームや複数社の取りまとめを行っておりました。`}
-              data={RESULTS[1].data}
-            />
-          )}
-
-          <Separator />
-
-          {RESULTS && (
-            <EntryList
-              heading={RESULTS[0].heading}
-              annotation={`制作会社Aにてフロントエンド開発を担当。
-              大規模サイトの保守運用からキャリアを開始したのち、代理店より受託したサイトの設計構築を担当。リッチな演出のブランドサイトやLPの開発を行っておりました。`}
-              data={RESULTS[0].data}
-            />
-          )}
+          {RESULTS.map((result, i) => (
+            <Fragment key={result.heading ?? uuidv4()}>
+              <EntryList
+                heading={result.heading ?? ''}
+                annotation={result.detail ?? ''}
+                data={result.data}
+              />
+              <Separator />
+            </Fragment>
+          ))}
 
           <PrimaryHeader
             text_ja="タグ一覧"

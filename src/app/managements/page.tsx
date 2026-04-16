@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Fragment } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PrimaryHeader } from '@/components/common/PrimaryHeader';
@@ -12,6 +14,7 @@ import { fetchPosts } from '@/lib/microcms';
 interface ResultsProps {
   heading?: string;
   data: (Work | Tool)[];
+  detail?: string;
 }
 
 export const metadata: Metadata = {
@@ -43,8 +46,11 @@ export default async function Managements() {
   // 年代ごとに実績を分類
   const RESULTS: ResultsProps[] = DATA_ERAS.map((era) => ({
     heading: era.name ?? '',
-    data: DATA_MANAGEMENTS.filter((data) => data.era.id === era.id)
-  }));
+    data: DATA_MANAGEMENTS.filter((data) => data.era.id === era.id),
+    detail: era.detail_management
+  }))
+    .filter((result) => result.data.length > 0)
+    .reverse(); // データが1件もない年代は表示しない
 
   return (
     <>
@@ -59,27 +65,16 @@ export default async function Managements() {
             className="mb-6"
           />
 
-          {RESULTS && (
-            <EntryList
-              heading={RESULTS[2].heading}
-              annotation={`事業会社Aにて管理を行なったプロジェクト一覧。
-            引き続きPLとしてプロジェクト管理に専念しました。
-            担当範囲が広く、専門性も進行力も求められ、自身のなかでプロジェクト管理の道に進む大きなターニングポイントになりました。`}
-              data={RESULTS[2].data}
-            />
-          )}
-
-          <Separator />
-
-          {RESULTS && (
-            <EntryList
-              heading={RESULTS[1].heading}
-              annotation={`制作会社Bにて管理を行なったプロジェクト一覧。
-            PL（プロジェクトリーダー）として、主に要件定義や設計を行い、外注先の選定から量産管理を行うことで、開発の効率化を図りました。自身もまた基本設計やコンポーネント設計を行なっております。
-            また、工程の再定義を行うことで生産性向上に寄与したり、複数チームや複数社の取りまとめを行っておりました。`}
-              data={RESULTS[1].data}
-            />
-          )}
+          {RESULTS.map((result, i) => (
+            <Fragment key={result.heading ?? uuidv4()}>
+              <EntryList
+                heading={result.heading ?? ''}
+                annotation={result.detail ?? ''}
+                data={result.data}
+              />
+              <Separator />
+            </Fragment>
+          ))}
 
           <PrimaryHeader
             text_ja="タグ一覧"
