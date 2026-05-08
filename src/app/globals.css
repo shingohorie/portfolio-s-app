@@ -101,6 +101,10 @@ body {
   font-family: var(--font-lato), var(--font-noto), sans-serif;
 }
 
+main > *:last-child {
+  margin-bottom: 0 !important;
+}
+
 /* =============================================
 下線付きリンクのカスタムスタイル
 ============================================= */

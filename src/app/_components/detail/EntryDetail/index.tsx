@@ -1,4 +1,5 @@
 import 'photoswipe/style.css';
+import Script from 'next/script';
 
 import { Pager } from '@/components/layout/Pager';
 
@@ -68,6 +69,7 @@ export function EntryDetail({ data, dataPager }: EntryDetailProps) {
           <Pager data={dataPager} />
         </div>
       )}
+      <Script src="//cdn.iframe.ly/embed.js" strategy="lazyOnload" />
     </div>
   );
 }
