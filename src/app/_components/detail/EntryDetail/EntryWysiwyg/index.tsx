@@ -26,7 +26,11 @@ function parseHtml(html: string): ParsedObjectType[] {
   Array.from(body.children).forEach((el) => {
     result.push({
       type: el.tagName.toLowerCase(),
-      innerHTML: el.innerHTML ?? ''
+      innerHTML:
+        el.innerHTML
+          .replace(/>\n/g, '>')
+          .replace(/\n</g, '<')
+          .replace(/\n/g, '') ?? ''
     });
   });
 
