@@ -138,12 +138,14 @@ WYSIWYGエディタ内のパーツに対するカスタムスタイル
 ============================================= */
 /* WYSIWYGエディタ内の見出しスタイル */
 .custom-wysiwyg h2 {
-  font-size: 1.2em;
+  font-size: 1.35em;
+  margin-top: 2em;
   margin-bottom: 0.5em;
 }
 
 .custom-wysiwyg h3 {
   font-size: 1.1em;
+  margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
 
@@ -245,6 +247,10 @@ WYSIWYGエディタ内のパーツに対するカスタムスタイル
   width: 40px;
   height: 20px;
   margin: 2em auto;
+}
+
+.custom-wysiwyg hr + * {
+  margin-top: 0 !important;
 }
 
 /* リンクのスタイル（WYSIWYG内） */
