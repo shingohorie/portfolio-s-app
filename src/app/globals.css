@@ -282,6 +282,21 @@ WYSIWYGエディタ内のパーツに対するカスタムスタイル
   font-size: 80%;
 }
 
+/* 表組のスタイル */
+.custom-wysiwyg table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em auto;
+}
+
+.custom-wysiwyg table th,
+td {
+  text-align: left;
+  vertical-align: middle;
+  padding: 5px 10px;
+  border: 1px solid #e8e7e7;
+}
+
 /* =============================================
 アーカイブ用ページャーの装飾背景（市松模様風）
 ============================================= */
