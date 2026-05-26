@@ -44,8 +44,8 @@ export const SKILL_DATA_FRONTEND = [
   },
   {
     name: 'Next.js / React',
-    annotation: '既存の横展開・小規模なコンポーネント開発なら可能',
-    percentage: 50
+    annotation: '大規模でなければ、基本設計は可能',
+    percentage: 80
   },
   {
     name: 'Nuxt / Vue.js',
@@ -55,13 +55,13 @@ export const SKILL_DATA_FRONTEND = [
   {
     name: 'TypeScript',
     annotation: '基礎的なコーディングなら可能',
-    percentage: 50
+    percentage: 60
   },
   {
     name: 'スタイリングライブラリ・CSSフレームワーク・既存の設計思想',
     annotation:
-      'CSS(SCSS) Modules, Tailwind CSS, FLOCSS, PRECSS, BEM での実装経験あり',
-    percentage: 60
+      'Tailwind CSS, CSS(SCSS) Modules, FLOCSS, PRECSS, BEM での実装経験あり',
+    percentage: 80
   },
   {
     name: '単体テスト',
